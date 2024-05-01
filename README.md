@@ -6,7 +6,7 @@ The associated GraphBGS can be seen in <https://github.com/jhonygiraldo/GraphBGS
 In our code, we can compare the results of TV, Tik and CNC models on small data sets by running demo_gssl_cnc_tv.
 
 ## Numerical Experiments
-In order to validate our model 's ability to reproduce real signals, we conduct experiments on CDNet2014, a dataset encompassing a vast array of data from various aspects and we can download the corresponding data set through <http://jacarini.dinf.usherbrooke.ca/dataset2014/>, then we  compare the experimental outcomes with those of alternative models.
+In order to validate our model 's ability to reproduce real signals, we conduct experiments on CDNet2014, a dataset encompassing a vast array of data from various aspects and we can download the corresponding data set through <http://www.changedetection.net/>, then we  compare the experimental outcomes with those of alternative models.
 
 
 In the experiment, we primarily proceed through the following steps to complete the experiment and compute the corresponding performance indicators.
