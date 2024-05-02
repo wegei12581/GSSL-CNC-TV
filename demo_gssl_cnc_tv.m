@@ -11,6 +11,8 @@
 %  argmin argmin_{x} ||Mx - y||_2^2  + epsilon * || x ||_{GTV}
 %  i.e. argmin argmin_{x} ||Mx - y||_2^2  + epsilon * || x ||_{1}
 %
+%
+%
 %  We can also use the Tikhonov regularizer that will promote smoothness.
 %  In this case, we solve:
 %   
