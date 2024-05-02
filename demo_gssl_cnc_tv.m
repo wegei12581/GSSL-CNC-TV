@@ -24,9 +24,6 @@
 %   argmin argmin_{x} ||Mx - y||_2^2  + epsilon * {|| x ||_1 - min_{v}{|| v ||_1 + 1/2||B(x-v)||_2^2}}
 %   
 %
-%   We solve this problem by writing our own gsp_regression_cnc and firm_thr functions,  .. 
-%   where cnc passes one more parameter mu than tv, ..
-%   the choice of mu is given in the paper.
 %
 %
 
