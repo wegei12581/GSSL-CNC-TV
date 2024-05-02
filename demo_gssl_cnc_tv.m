@@ -1,92 +1,31 @@
 %GSP_DEMO_GRAPH_TV Reconstruction of missing sample on a graph using TV
 %
-%   In this demo, we try to reconstruct missing sample of a piece-wise
-%   smooth signal on a graph. To do so, we will minimize the well-known TV
-%   norm defined on the graph.
+%   In this demo, We utilize the function to randomly generate a block graph, 
+%    、and then utilize the TV, TIK, and CNC models respectively to process the sample graph based on the generated graph,
+%   with the aim of restoring the graph information, and then compare the results obtained by different models.
 %
 %   For this example, you need the unlocbox. You can download it here:
 %   http://unlocbox.sourceforge.net/download
 %
-%   We express the recovery problem as a convex optimization problem of the
-%   following form:
+%  We can use the TV regularizer，the most classic optimization model to restore the graph signal value.
+%  In this case, we solve:
 %
-%   ..   argmin   ||grad(x)||_1   s. t. Mx = y
+%  argmin argmin_{x} ||Mx - y||_2^2  + epsilon * || x ||_{GTV}
+%  i.e. argmin argmin_{x} ||Mx - y||_2^2  + epsilon * || x ||_{1}
 %
-%   .. math:: arg \min_x  \|\nabla(x)\|_1 \text{ s. t. } Mx = y
-%  
-%   Where b represents the known measurements, M is an operator
-%   representing the mask and $\epsilon$ is the radius of the l2 ball.
-%
-%   We set 
-%
-%   * $f_1(x)=||\nabla x ||_1$
-%     We define the prox of $f_1$ as: 
-%
-%     .. prox_{f1,gamma} (z) = argmin_{x} 1/2 ||x-z||_2^2  +  gamma  ||grad(z)||_1
-%
-%     .. math:: prox_{f1,\gamma} (z) = arg \min_{x} \frac{1}{2} \|x-z\|_2^2 +  \gamma \| \nabla z \|_1
-%
-%   * $f_2$ is the indicator function of the set S define by $Mx = y$
-%     We define the prox of $f_2$ as 
-%
-%     .. prox_{f2,gamma} (z) = argmin_{x} 1/2 ||x-z||_2^2  +  gamma i_S( x ),
-%
-%     .. math:: prox_{f2,\gamma} (z) = arg \min_{x} \frac{1}{2} \|x-z\|_2^2   + i_S(x) ,
-%
-%     with $i_S(x)$ is zero if x is in the set S and infinity otherwise.
-%     This previous problem has an identical solution as:
-%
-%     .. argmin_{x} ||x - z||_2^2   s.t.  Mx = y
-%
-%     .. math:: arg \min_{x} \|x - z\|_2^2   \hspace{1cm} such \hspace{0.25cm} that \hspace{1cm} Mx = y
-%
-%     It is simply a projection on the B2-ball.
-%
-%   Results
-%   -------
-%
-%   .. figure::
-%
-%      Original signal on graph
-%
-%      This figure shows the original signal on graph.
-%
-%   .. figure::
-%
-%      Depleted signal on graph
-%
-%      This figure shows the signal on graph after the application of the
-%      mask and addition of noise. Half of the vertices are set to 0.
-%
-%   .. figure::
-%
-%      Reconstructed signal on graph usign TV
-%
-%      This figure shows the reconstructed signal thanks to the algorithm.
-%
-%   Comparison with Tikhonov regularization
-%   ---------------------------------------
-%
-%   We can also use the Tikhonov regularizer that will promote smoothness.
-%   In this case, we solve:
+%  We can also use the Tikhonov regularizer that will promote smoothness.
+%  In this case, we solve:
 %   
-%   ..   argmin   ||grad(x)||_2^2   s. t. ||Mx-b||_2 < epsilon
+%  argmin   ||grad(x)||_2^2   s. t. ||Mx-b||_2 < epsilon
+% 
 %
-%   .. math:: arg \min_x \tau \|\nabla(x)\|_2^2 \text{ s. t. } \|Mx-b\|_2 \leq \epsilon 
-%
-%   The result is presented in the following figure:
-%
-%   .. figure::
-%
-%      Reconstructed signal on graph using Tikhonov 
-%
-%      This figure shows the reconstructed signal thanks to the algorithm.
-%
+%   
 %   We can also use the CNC regularizer that will reduced the underestimation in l1 regularization.
 %   In this case, we solve:
-%   argmin argmin_{x} ||Mx - y||_2^2  + || x ||_1 - min_{v}{|| v ||_1 + 1/2||B(x-v)||_2^2}
+%
+%   argmin argmin_{x} ||Mx - y||_2^2  + epsilon * {|| x ||_1 - min_{v}{|| v ||_1 + 1/2||B(x-v)||_2^2}}
 %   
-
+%
 %   We solve this problem by writing our own gsp_regression_cnc and firm_thr functions,  .. 
 %   where cnc passes one more parameter mu than tv, ..
 %   the choice of mu is given in the paper.
@@ -159,13 +98,13 @@ caxis([-1 1])
 title('Measurement')
 
 
-% Let show the reconstructed graph
+
 figure(3)
 gsp_plot_signal(G,sol,paramplot)
 caxis([-1 1])
 title('Solution of the algorithm: TV')
 
-% Let show the reconstructed graph
+
 figure(4)
 gsp_plot_signal(G,sol2,paramplot)
 caxis([-1 1])
