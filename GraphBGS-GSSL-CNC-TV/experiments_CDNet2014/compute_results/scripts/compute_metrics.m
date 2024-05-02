@@ -4,7 +4,7 @@ path_to_change_detection = 'D:/GraphBGS/CDNet2014/dataset/'; % Change this line 
 segmentation_algorithm = 'R_50_FPN_COCO';
 background_inti_algorithm = 'median_filter';
 construction_algorithm = 'robust';
-semi_supervised_learning = 'variational_splines';
+semi_supervised_learning = 'GME-TV';
 epsilon = 0.2; % Set this parameter to 0 for TV minimization
 path_to_results_semi = [pwd,'/../../semi_supervised_learning/',...
     semi_supervised_learning,'-',construction_algorithm,...
