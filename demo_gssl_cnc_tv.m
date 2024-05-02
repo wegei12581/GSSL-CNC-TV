@@ -1,13 +1,11 @@
-%GSP_DEMO_GRAPH_TV Reconstruction of missing sample on a graph using TV
-%
 %   In this demo, We utilize the function to randomly generate a block graph, 
-%    、and then utilize the TV, TIK, and CNC models respectively to process the sample graph based on the generated graph,
+%   and then utilize the TV, Tikhonov, and CNC regularizer respectively to process the sample graph based on the generated graph,
 %   with the aim of restoring the graph information, and then compare the results obtained by different models.
 %
 %   For this example, you need the unlocbox. You can download it here:
 %   http://unlocbox.sourceforge.net/download
 %
-%  We can use the TV regularizer，the most classic optimization model to restore the graph signal value.
+%  We can use the TV regularizer，the most classic regularizer to restore the graph signal value.
 %  In this case, we solve:
 %
 %  argmin argmin_{x} ||Mx - y||_2^2  + epsilon * || x ||_{GTV}
