@@ -3,7 +3,7 @@ In our paper, we introduce a semi-supervised learning model based on CNC-TV base
 The associated GraphBGS can be seen in <https://github.com/jhonygiraldo/GraphBGS>, the corresponding article is <https://ieeexplore.ieee.org/document/9412999/>.
 
 Our GSSL model is depicted below：
-![/GraphBGS-GSSL-CNC-TV/doc/fig4](/GraphBGS-GSSL-CNC-TV/doc/fig4)
+![/GraphBGS-GSSL-CNC-TV/doc/fig4](/GraphBGS-GSSL-CNC-TV/doc/fig4.png)
 
 
 ## Random block graph experiment
