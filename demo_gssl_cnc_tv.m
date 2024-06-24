@@ -42,9 +42,9 @@ init_unlocbox();
 verbose = 1;    % verbosity level
 sigma = 0.0;
 
-N = 240; % size of the graph for the demo
+N = 256; % size of the graph for the demo
 
-rng(2024);
+
 
 
 
@@ -65,7 +65,17 @@ p = 0.8; %probability of having no label on a vertex.
 %create the mask
 M = rand(G.N,1);
 M = M>p;
-
+M_random = sparse(sum(M),G.N);
+                    %%
+                    ind_M_random = 1;
+                    for kk=1:G.N
+                        if(M(kk))
+                            M_random(ind_M_random,kk) = 1;
+                            ind_M_random = ind_M_random + 1;
+                        end
+                    end
+                    %%
+                    x_sampled_random = M_random*(graph_value+sigma*randn(G.N,1));
 
 %applying the Mask to the datao
 depleted_graph_value = M.*(graph_value+sigma*randn(G.N,1));
@@ -74,9 +84,15 @@ sol = gsp_regression_tv(G,M,depleted_graph_value,0.03);
 sol2 = gsp_regression_tik(G,M,depleted_graph_value,0.03);
 sol3 = gsp_regression_cnc(G,M,depleted_graph_value,0.03,2.25);
 
+
 sol4 = sol - graph_value;
 sol5 = sol2 - graph_value;
 sol6 = sol3 - graph_value;
+
+sol7 = gsp_interpolate(G,x_sampled_random,find(M==1));
+sol8 = sol7 - graph_value; 
+
+
 
 %% Print the result
 paramplot.show_edges = 1;
@@ -126,3 +142,13 @@ figure(8)
 gsp_plot_signal(G,sol6,paramplot)
 caxis([-1 1])
 title('CNC error')
+
+figure(9)
+gsp_plot_signal(G,sol7,paramplot)
+caxis([-1 1])
+% title('Solution of the algorithm: Sobolev')
+
+figure(10)
+gsp_plot_signal(G,sol8,paramplot)
+caxis([-1 1])
+% title('Sobolev error')
